@@ -14,6 +14,7 @@ export class SecretWordController {
   wordHasBeenFound: Subject<void> = new Subject<void>();
 
   private _possibleWords: SecretWord[] = [
+    // { value: 'a', help: 'a' }
     { value: 'michael jordan', help: 'jogador de basquete' },
     { value: 'tom brady', help: 'jogador de futebol americano' },
     { value: 'quadra', help: 'local de se praticar esportes' },
@@ -42,8 +43,6 @@ export class SecretWordController {
   get remainingChars(): string {
     return this._remainingChars;
   }
-
-  constructor() { }
 
   setSecretWord(): SecretWord {
     const randomIndex: number = Math.floor(Math.random() * this._possibleWords.length);

@@ -41,15 +41,14 @@
         </p>
     </div>
 
-    <div *ngIf="triedCharsController.wrongCharactersTried.length > 0">
+    <div *ngIf="wrongCharactersTried.length > 0">
 
         <p>
             Letras erradas:
         </p>
 
         <div class="row mx-1">
-            <div *ngFor="let char of triedCharsController.wrongCharactersTried"
-                class="col-auto card text-danger border-danger fw-bold">
+            <div *ngFor="let char of wrongCharactersTried" class="col-auto card text-danger border-danger fw-bold">
                 <div class="card-body">
                     <p class="card-text">
                         {{char}}

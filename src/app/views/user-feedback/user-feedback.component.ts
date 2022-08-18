@@ -18,6 +18,10 @@ export class UserFeedbackComponent {
 
   @Input() secretWord!: SecretWord
 
+  get wrongCharactersTried(): string[] {
+    return this.triedCharsController.triedCharacters.filter(char => !this.secretWord.value.includes(char));
+  }
+
   constructor(
     public gameController: GameController,
     public triedCharsController: TriedCharsController,
