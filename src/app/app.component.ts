@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
   }
 
   handleCharSubmitted(char: string): void {
+    this._gameController.removeAttempt();
     if (this.secretWordController.remainingChars == '') {
       this.secretWordController.wordHasBeenFound.next();
       return;

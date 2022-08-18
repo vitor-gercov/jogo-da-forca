@@ -56,7 +56,7 @@ export class GameController {
   removeAttempt(): void {
     if (this._remainingAttempts > 0) {
       this._remainingAttempts--;
-      if (this._remainingAttempts == 0) {
+      if (this._remainingAttempts == 0 && this._secretWordService.remainingChars != '') {
         this.endGame('lose');
       }
     }
