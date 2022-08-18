@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+$primary: #106EB0;
+$danger: #EC7000;
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+.snackbar {
+    background-color: white;
+    color: black;
+
+    button {
+        background-color: $primary;
+        color: white;
+    }
+}

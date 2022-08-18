@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-12">
+
+        <div class="card" *ngIf="gameController.remainingAttempts > 0 && !gameController.gameHasEnded">
+            <div class="card-body">
+
+                <div class="d-flex flex-md-column">
+
+                    <div class="form-group flex-fill" (keyup.enter)="submitChar()">
+                        <label>
+                            Chute uma letra:
+                        </label>
+                        <input type="text" class="form-control" #userInputDOMElement
+                            [formControl]="userInputFormControl" [class.is-invalid]="moreThanOneCharWasTyped || charWasAlreadyTried || charIsntAlphaChar || (formControlWasSubmitted
+                        && charWasntInformed)">
+
+                        <div class="invalid-feedback">
+
+                            <p *ngIf="moreThanOneCharWasTyped">
+                                Ei, só uma letra! ;)
+                            </p>
+                            <p *ngIf="charWasAlreadyTried">
+                                Você já tentou essa letra! kkk
+                            </p>
+                            <p *ngIf="charIsntAlphaChar">
+                                Apenas letras sem acentos são permitidas.
+                            </p>
+                            <p *ngIf="formControlWasSubmitted && charWasntInformed">
+                                Por favor, informe uma letra.
+                            </p>
+
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-md-3">
+                        <button class="btn btn-primary px-md-5 ms-3 ms-md-0 fw-bold" (click)="submitChar()">
+                            chutar
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <hr>
+
+        <div class="d-flex justify-content-end mt-3">
+            <button class="btn btn-outline-danger px-5 fw-bold"
+                (click)="gameController.restartGame(); userInputDOMElement?.nativeElement.focus();">
+                Reiniciar
+            </button>
+        </div>
+
+    </div>
+</div>

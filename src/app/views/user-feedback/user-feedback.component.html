@@ -1,0 +1,59 @@
+<div *ngIf="secretWord">
+
+    <div *ngFor="let word of secretWord.value.split(' ')">
+        <div class="row mx-1 mb-3">
+
+            <div *ngFor="let char of word.split('')" class="col-auto card" [ngClass]="{
+                    'text-success border-success': triedCharsController.triedCharacters.includes(char)
+                }">
+                <div class="card-body">
+                    <p class="card-text fw-bold">
+                        {{triedCharsController.triedCharacters.includes(char) || char == ' ' ? char : '_'}}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <p>
+        Dica:
+        <span class="fw-bold">
+            {{secretWord.help}}
+        </span>
+    </p>
+
+    <hr>
+
+    <p>
+        Tentativas restantes:
+        <span class="fw-bold">
+            {{gameController.remainingAttempts}}
+        </span>
+    </p>
+
+    <div class="fw-bold" *ngIf="gameController.gameHasEnded" [ngSwitch]="gameController.gameState">
+        <p class="text-danger" *ngSwitchCase="'lose'">
+            Você perdeu :( reinicie para tentar novamente!
+        </p>
+
+        <p class="text-success" *ngSwitchCase="'win'">
+            Você ganhou! Parabéns! :D
+        </p>
+    </div>
+
+    <p>
+        Letras erradas:
+    </p>
+
+    <div class="row mx-1">
+        <div *ngFor="let char of triedCharsController.wrongCharactersTried"
+            class="col-auto card text-danger border-danger fw-bold">
+            <div class="card-body">
+                <p class="card-text">
+                    {{char}}
+                </p>
+            </div>
+        </div>
+    </div>
+
+</div>
