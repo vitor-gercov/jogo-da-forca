@@ -8,10 +8,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 //angular material
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //internal modules
 import { UserInputModule } from './views/user-input/user-input.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserFeedbackModule } from './views/user-feedback/user-feedback.module';
 
 @NgModule({
