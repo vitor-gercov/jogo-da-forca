@@ -5,7 +5,7 @@ import { GameController } from 'src/app/controllers/game/game-controller.service
 import { TriedCharsController } from 'src/app/controllers/tried-chars/tried-chars-controller.service';
 
 //models
-import { SecretWord } from 'src/app/models/secret-word.entity';
+import { SecretWord } from 'src/app/models/secret-word.model';
 
 
 

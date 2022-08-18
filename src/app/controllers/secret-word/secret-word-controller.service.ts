@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
 //models
-import { SecretWord } from 'src/app/models/secret-word.entity';
+import { SecretWord } from 'src/app/models/secret-word.model';
 
 
 
