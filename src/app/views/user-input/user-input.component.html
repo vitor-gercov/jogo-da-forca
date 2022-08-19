@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12">
 
-        <div class="card" *ngIf="gameController.remainingAttempts > 0 && !gameController.gameHasEnded">
+        <div class="card" *ngIf="!gameController.gameHasEnded">
             <div class="card-body">
 
                 <div class="d-flex flex-md-column">
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="d-flex justify-content-end mt-md-3">
-                        <button class="btn btn-primary px-md-5 ms-3 ms-md-0 fw-bold" (click)="submitChar()">
+                        <button class="btn btn-primary px-md-5 ms-3 fw-bold" (click)="submitChar()">
                             chutar
                         </button>
                     </div>
@@ -45,8 +45,13 @@
 
         <hr>
 
-        <div class="d-flex justify-content-end mt-3">
-            <button class="btn btn-outline-danger px-5 fw-bold"
+        <div class="d-flex justify-content-end mt-3 mb-5">
+            <button class="btn btn-outline-primary px-5 fw-bold" *ngIf="!gameController.gameHasEnded"
+                (click)="openModal();">
+                acho que eu sei a palavra!
+            </button>
+
+            <button class="btn btn-outline-danger px-5 fw-bold ms-3"
                 (click)="gameController.restartGame(); userInputDOMElement?.nativeElement.focus();">
                 reiniciar
             </button>
@@ -54,3 +59,48 @@
 
     </div>
 </div>
+
+<ng-template #tryWordModal>
+    <div class="modal-header">
+        <h2 class="mb-0 fw-bold">
+            tentar palavra
+        </h2>
+        <button class="btn btn-outline-danger fw-bold" (click)="modalReference?.dismiss();">
+            <span>
+                &times;
+            </span>
+        </button>
+    </div>
+    <div class="modal-body" (keyup.enter)="tryWord()" *ngIf="tryWordFormControl">
+        <p class="text-danger mb-3">
+            <strong>
+                Atenção!
+            </strong>
+            Se você errar a palavra, o jogo acaba.
+        </p>
+        <div class="form-group mb-3">
+            <label>
+                palavra:
+            </label>
+            <input type="text" class="form-control" [formControl]="tryWordFormControl"
+                [class.is-invalid]="tryWordFormControlWasSubmitted && tryWordFormControl.invalid">
+            <div class="invalid-feedback">
+                Palavra não informada.
+            </div>
+        </div>
+        <p>
+            Dica:
+            <strong>
+                {{ secretWordController.secretWord.help }}
+            </strong>
+        </p>
+    </div>
+    <div class="modal-footer justify-content-between justify-content-md-end">
+        <button class="btn btn-outline-secondary px-5 fw-bold" (click)="modalReference?.dismiss();">
+            cancelar
+        </button>
+        <button class="btn btn-primary px-5 fw-bold" (click)="tryWord()">
+            chutar
+        </button>
+    </div>
+</ng-template>

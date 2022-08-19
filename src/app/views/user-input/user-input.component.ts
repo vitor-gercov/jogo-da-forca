@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 
@@ -9,6 +9,9 @@ import { SecretWordController } from 'src/app/controllers/secret-word/secret-wor
 
 //services
 import { CustomValidatorsService } from 'src/app/services/custom-validators/custom-validators.service';
+
+//ng-bootstrap
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -24,6 +27,12 @@ export class UserInputComponent implements OnInit, AfterViewInit {
 
   @Output('onCharSubmitted') submitCharSubject: Subject<string> = new Subject<string>();
   @Output('onResetRequest') resetSubject: Subject<void> = new Subject<void>();
+
+  @ViewChild('tryWordModal') tryWordModal?: TemplateRef<any>;
+  modalReference?: NgbModalRef;
+
+  tryWordFormControl?: FormControl;
+  tryWordFormControlWasSubmitted?: boolean;
 
   @ViewChild('userInputDOMElement') userInputDOMElement?: ElementRef;
 
@@ -47,17 +56,18 @@ export class UserInputComponent implements OnInit, AfterViewInit {
     //controllers
     public gameController: GameController,
     public triedCharsController: TriedCharsController,
-    private _secretWordService: SecretWordController,
+    public secretWordController: SecretWordController,
 
     //services
     private _formBuilder: FormBuilder,
     private _customValidators: CustomValidatorsService,
+    private _modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
-    this._setFormGroup();
-    this._secretWordService.wordHasBeenFound.subscribe(() => {
-      this._setFormGroup();
+    this._setFormControl();
+    this.secretWordController.wordHasBeenFound.subscribe(() => {
+      this._setFormControl();
     })
   }
 
@@ -73,17 +83,40 @@ export class UserInputComponent implements OnInit, AfterViewInit {
       let charWasSubmitted = this.triedCharsController.addChar(this.userInputFormControl.value);
       if (charWasSubmitted) {
         this.submitCharSubject.next(charWasSubmitted);
-        this._setFormGroup();
+        this._setFormControl();
         return;
       }
     }
   }
 
-  private _setFormGroup(): void {
+  openModal(): void {
+    this._setTryWordFormControl();
+    this.modalReference = this._modalService.open(this.tryWordModal)
+  }
+
+  tryWord(): void {
+    this.tryWordFormControlWasSubmitted = true
+    if (this.tryWordFormControl?.valid) {
+      let result: 'win' | 'lose' =
+        this.secretWordController.secretWord.value != this.tryWordFormControl.value.replace(/ +(?= )/g, '').trim().toLowerCase() ? 'lose' : 'win';
+      this.modalReference?.close();
+      this.gameController.endGame(result);
+    }
+  }
+
+  private _setFormControl(): void {
     this.formControlWasSubmitted = false;
     this.userInputFormControl = this._formBuilder.control(
       '',
       [Validators.required, Validators.maxLength(1), Validators.pattern('^[A-Za-zçÇ]*$'), this._customValidators.validateChar()],
+    );
+  }
+
+  private _setTryWordFormControl(): void {
+    this.tryWordFormControlWasSubmitted = false;
+    this.tryWordFormControl = this._formBuilder.control(
+      '',
+      [Validators.required],
     );
   }
 }
