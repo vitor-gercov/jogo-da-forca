@@ -83,7 +83,7 @@
             <label>
                 palavra:
             </label>
-            <input type="text" class="form-control" [formControl]="tryWordFormControl"
+            <input type="text" class="form-control" [formControl]="tryWordFormControl" #tryWordInputDOMElement
                 [class.is-invalid]="tryWordFormControlWasSubmitted && tryWordFormControl.invalid">
             <div class="invalid-feedback">
                 Palavra não informada.
