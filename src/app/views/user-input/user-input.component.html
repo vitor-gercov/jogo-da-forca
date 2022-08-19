@@ -1,9 +1,9 @@
-<!-- <div class="d-flex align-items-center mb-3">
+<div class="d-flex align-items-center mb-3">
     <input type="checkbox" class="me-2" [(ngModel)]="gameController.showTips">
     <span>
         Mostrar dicas
     </span>
-</div> -->
+</div>
 
 <div class="card" *ngIf="!gameController.gameHasEnded">
     <div class="card-body">
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<!-- <hr>
+<hr>
 
 <div class="d-flex justify-content-end mt-3 mb-5">
     <button class="btn btn-outline-primary px-5 fw-bold" *ngIf="!gameController.gameHasEnded" (click)="openModal();">
@@ -55,7 +55,7 @@
     </button>
 
     <button class="btn btn-outline-danger px-5 fw-bold ms-3"
-        (click)="gameController.restartGame(); userInputDOMElement?.nativeElement.focus();">
+        (click)="gameController.restartGame(); tryCharInputDOMElement?.nativeElement.focus();">
         reiniciar
     </button>
 </div>
@@ -89,7 +89,7 @@
                 Palavra não informada.
             </div>
         </div>
-        <p>
+        <p *ngIf="gameController.showTips">
             Dica:
             <strong>
                 {{ secretWordController.secretWord.help }}
@@ -104,4 +104,4 @@
             chutar
         </button>
     </div>
-</ng-template> -->
+</ng-template>
