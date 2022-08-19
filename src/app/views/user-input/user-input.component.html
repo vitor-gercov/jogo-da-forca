@@ -54,7 +54,7 @@
 
     <button class="btn btn-outline-danger px-5 fw-bold ms-3"
         (click)="gameController.restartGame(); tryCharInputDOMElement?.nativeElement.focus();">
-        reiniciar
+        {{ gameController.gameHasEnded ? 'jogar novamente' : 'trocar palavra' }}
     </button>
 </div>
 
