@@ -65,6 +65,7 @@ export class GameController {
   }
 
   private _setRemainingAttempts(): void {
-    this._remainingAttempts = this._secretWordService.remainingChars.replace(/\s+/g, '').trim().length * 2;
+    this._remainingAttempts = (this._secretWordService.remainingChars.replace(/\s+/g, '').trim().length * 2) > 26 ?
+      26 : (this._secretWordService.remainingChars.replace(/\s+/g, '').trim().length * 2);
   }
 }
