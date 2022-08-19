@@ -6,7 +6,7 @@
             <div *ngFor="let char of word.split('')" class="col-auto card" [ngClass]="{
                     'text-success border-success': triedCharsController.triedCharacters.includes(char)
                 }">
-                <div class="card-body">
+                <div class="p-2">
                     <p class="card-text fw-bold">
                         {{triedCharsController.triedCharacters.includes(char) || char == ' ' ? char : '_'}}
                     </p>
@@ -50,7 +50,7 @@
 
         <div class="row mx-1">
             <div *ngFor="let char of wrongCharactersTried" class="col-auto card text-danger border-danger fw-bold">
-                <div class="card-body">
+                <div class="p-2">
                     <p class="card-text">
                         {{char}}
                     </p>
