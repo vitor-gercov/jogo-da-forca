@@ -1,9 +1,9 @@
-<div class="d-flex align-items-center mb-3">
+<!-- <div class="d-flex align-items-center mb-3">
     <input type="checkbox" class="me-2" [(ngModel)]="gameController.showTips">
     <span>
         Mostrar dicas
     </span>
-</div>
+</div> -->
 
 <div class="card" *ngIf="!gameController.gameHasEnded">
     <div class="card-body">
@@ -14,7 +14,7 @@
                 <label>
                     Chute uma letra:
                 </label>
-                <input type="text" class="form-control" #userInputDOMElement [formControl]="tryCharFormControl"
+                <input type="text" class="form-control" #tryCharInputDOMElement [formControl]="tryCharFormControl"
                     [class.is-invalid]="moreThanOneCharWasTyped || charWasAlreadyTried || charIsntAlphaChar || (tryCharformControlWasSubmitted
                         && charWasntInformed)">
 
@@ -47,7 +47,7 @@
     </div>
 </div>
 
-<hr>
+<!-- <hr>
 
 <div class="d-flex justify-content-end mt-3 mb-5">
     <button class="btn btn-outline-primary px-5 fw-bold" *ngIf="!gameController.gameHasEnded" (click)="openModal();">
@@ -104,4 +104,4 @@
             chutar
         </button>
     </div>
-</ng-template>
+</ng-template> -->

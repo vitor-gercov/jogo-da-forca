@@ -26,15 +26,15 @@ export class UserInputComponent implements OnInit, AfterViewInit {
   tryCharformControlWasSubmitted!: boolean;
 
   @Output('onCharSubmitted') submitCharSubject: Subject<string> = new Subject<string>();
-  @Output('onResetRequest') resetSubject: Subject<void> = new Subject<void>();
 
-  @ViewChild('tryWordModal') tryWordModal?: TemplateRef<any>;
-  modalReference?: NgbModalRef;
+  // @ViewChild('tryWordModal') tryWordModal?: TemplateRef<any>;
+  // modalReference?: NgbModalRef;
 
-  tryWordFormControl?: FormControl;
-  tryWordFormControlWasSubmitted?: boolean;
+  // tryWordFormControl?: FormControl;
+  // tryWordFormControlWasSubmitted?: boolean;
 
-  @ViewChild('userInputDOMElement') userInputDOMElement?: ElementRef;
+  @ViewChild('tryCharInputDOMElement') tryCharInputDOMElement?: ElementRef;
+  // @ViewChild('tryWordInputDOMElement') tryWordInputDOMElement?: ElementRef;
 
   get moreThanOneCharWasTyped(): boolean {
     return this.tryCharFormControl.hasError('maxlength');
@@ -73,7 +73,7 @@ export class UserInputComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     setTimeout(() => {
-      this.userInputDOMElement?.nativeElement.focus();
+      this.tryCharInputDOMElement?.nativeElement.focus();
     }, 0)
   }
 
@@ -86,20 +86,23 @@ export class UserInputComponent implements OnInit, AfterViewInit {
     }
   }
 
-  openModal(): void {
-    this._setTryWordFormControl();
-    this.modalReference = this._modalService.open(this.tryWordModal)
-  }
+  // openModal(): void {
+  //   this._setTryWordFormControl();
+  //   this.modalReference = this._modalService.open(this.tryWordModal)
+  // setTimeout(() => {
+  //   this.tryWordInputDOMElement?.nativeElement.focus();
+  // }, 0);
+  // }
 
-  tryWord(): void {
-    this.tryWordFormControlWasSubmitted = true
-    if (this.tryWordFormControl?.valid) {
-      let result: 'win' | 'lose' =
-        this.secretWordController.secretWord.value != this.tryWordFormControl.value.replace(/ +(?= )/g, '').trim().toLowerCase() ? 'lose' : 'win';
-      this.modalReference?.close();
-      this.gameController.endGame(result);
-    }
-  }
+  // tryWord(): void {
+  //   this.tryWordFormControlWasSubmitted = true
+  //   if (this.tryWordFormControl?.valid) {
+  //     let result: 'win' | 'lose' =
+  //       this.secretWordController.secretWord.value != this.tryWordFormControl.value.replace(/ +(?= )/g, '').trim().toLowerCase() ? 'lose' : 'win';
+  //     this.modalReference?.close();
+  //     this.gameController.endGame(result);
+  //   }
+  // }
 
   private _setFormControl(): void {
     this.tryCharformControlWasSubmitted = false;
@@ -109,11 +112,11 @@ export class UserInputComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private _setTryWordFormControl(): void {
-    this.tryWordFormControlWasSubmitted = false;
-    this.tryWordFormControl = this._formBuilder.control(
-      '',
-      [Validators.required],
-    );
-  }
+  // private _setTryWordFormControl(): void {
+  //   this.tryWordFormControlWasSubmitted = false;
+  //   this.tryWordFormControl = this._formBuilder.control(
+  //     '',
+  //     [Validators.required],
+  //   );
+  // }
 }

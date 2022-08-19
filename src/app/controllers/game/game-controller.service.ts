@@ -11,7 +11,7 @@ import { TriedCharsController } from '../tried-chars/tried-chars-controller.serv
 })
 export class GameController {
 
-  showTips: boolean = false;
+  // showTips: boolean = false;
 
   private _gameState: 'win' | 'lose' | 'playing' = 'playing';
   private _gameHasEnded: boolean = false;
@@ -47,13 +47,13 @@ export class GameController {
     this._gameState = gameState;
   }
 
-  restartGame(): void {
-    this._gameHasEnded = false;
-    this._gameState = 'playing';
-    this._secretWordService.setSecretWord();
-    this._setRemainingAttempts();
-    this._triedCharsController.reset();
-  }
+  // restartGame(): void {
+  //   this._gameHasEnded = false;
+  //   this._gameState = 'playing';
+  //   this._secretWordService.setSecretWord();
+  //   this._setRemainingAttempts();
+  //   this._triedCharsController.reset();
+  // }
 
   removeAttempt(): void {
     if (this._remainingAttempts > 0) {
