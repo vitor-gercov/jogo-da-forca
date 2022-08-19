@@ -22,8 +22,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 })
 export class UserInputComponent implements OnInit, AfterViewInit {
 
-  userInputFormControl!: FormControl;
-  formControlWasSubmitted!: boolean;
+  tryCharFormControl!: FormControl;
+  tryCharformControlWasSubmitted!: boolean;
 
   @Output('onCharSubmitted') submitCharSubject: Subject<string> = new Subject<string>();
   @Output('onResetRequest') resetSubject: Subject<void> = new Subject<void>();
@@ -37,19 +37,19 @@ export class UserInputComponent implements OnInit, AfterViewInit {
   @ViewChild('userInputDOMElement') userInputDOMElement?: ElementRef;
 
   get moreThanOneCharWasTyped(): boolean {
-    return this.userInputFormControl.hasError('maxlength');
+    return this.tryCharFormControl.hasError('maxlength');
   }
 
   get charIsntAlphaChar(): boolean {
-    return this.userInputFormControl.hasError('pattern');
+    return this.tryCharFormControl.hasError('pattern');
   }
 
   get charWasntInformed(): boolean {
-    return this.userInputFormControl.hasError('required');
+    return this.tryCharFormControl.hasError('required');
   }
 
   get charWasAlreadyTried(): boolean {
-    return this.userInputFormControl.hasError('validateChar');
+    return this.tryCharFormControl.hasError('validateChar');
   }
 
   constructor(
@@ -78,14 +78,11 @@ export class UserInputComponent implements OnInit, AfterViewInit {
   }
 
   submitChar(): void {
-    this.formControlWasSubmitted = true;
-    if (this.userInputFormControl.valid) {
-      let charWasSubmitted = this.triedCharsController.addChar(this.userInputFormControl.value);
-      if (charWasSubmitted) {
-        this.submitCharSubject.next(charWasSubmitted);
-        this._setFormControl();
-        return;
-      }
+    this.tryCharformControlWasSubmitted = true;
+    if (this.tryCharFormControl.valid) {
+      this.submitCharSubject.next(this.tryCharFormControl.value.trim().toLowerCase());
+      this._setFormControl();
+      return;
     }
   }
 
@@ -105,8 +102,8 @@ export class UserInputComponent implements OnInit, AfterViewInit {
   }
 
   private _setFormControl(): void {
-    this.formControlWasSubmitted = false;
-    this.userInputFormControl = this._formBuilder.control(
+    this.tryCharformControlWasSubmitted = false;
+    this.tryCharFormControl = this._formBuilder.control(
       '',
       [Validators.required, Validators.maxLength(1), Validators.pattern('^[A-Za-zçÇ]*$'), this._customValidators.validateChar()],
     );

@@ -11,6 +11,8 @@ import { TriedCharsController } from '../tried-chars/tried-chars-controller.serv
 })
 export class GameController {
 
+  showTips: boolean = false;
+
   private _gameState: 'win' | 'lose' | 'playing' = 'playing';
   private _gameHasEnded: boolean = false;
   private _remainingAttempts!: number;

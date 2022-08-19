@@ -37,16 +37,19 @@ export class AppComponent implements OnInit {
   }
 
   handleCharSubmitted(char: string): void {
-    let message: string = 'Iih, letra errada!';
-    if (this.secretWordController.secretWord.value.includes(char)) {
-      this.secretWordController.removeCharFromSecretWord(char);
-      message = `Letra "${char}" inserida.`
+    let charWasSubmitted = this.triedCharsController.addChar(char);
+    if (charWasSubmitted) {
+      let message: string = 'Iih, letra errada!';
+      if (this.secretWordController.secretWord.value.includes(char)) {
+        this.secretWordController.removeCharFromSecretWord(char);
+        message = `Letra "${char}" inserida.`
+      }
+      this._gameController.removeAttempt();
+      if (this.secretWordController.remainingChars == '') {
+        this.secretWordController.wordHasBeenFound.next();
+        return;
+      }
+      this.snackbarService.show(message);
     }
-    this._gameController.removeAttempt();
-    if (this.secretWordController.remainingChars == '') {
-      this.secretWordController.wordHasBeenFound.next();
-      return;
-    }
-    this.snackbarService.show(message);
   }
 }
