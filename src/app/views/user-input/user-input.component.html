@@ -55,7 +55,7 @@
     </button>
 
     <button class="btn btn-outline-danger px-5 fw-bold ms-3"
-        (click)="gameController.restartGame(); userInputDOMElement?.nativeElement.focus();">
+        (click)="gameController.restartGame(); tryCharInputDOMElement?.nativeElement.focus();">
         reiniciar
     </button>
 </div>
@@ -89,7 +89,7 @@
                 Palavra não informada.
             </div>
         </div>
-        <p>
+        <p *ngIf="gameController.showTips">
             Dica:
             <strong>
                 {{ secretWordController.secretWord.help }}
